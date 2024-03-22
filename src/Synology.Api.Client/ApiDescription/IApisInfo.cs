@@ -21,5 +21,6 @@
         IApiInfo FileStationUploadApi { get; set; }
         
         IApiInfo FileStationSearchApi { get; set; }
+        IApiInfo FileStationDownloadApi { get; set; }
     }
 }

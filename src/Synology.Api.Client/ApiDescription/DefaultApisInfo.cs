@@ -20,14 +20,24 @@ namespace Synology.Api.Client.ApiDescription
             return new DefaultApisInfo
             {
                 AuthApi = { Path = infoQueryResponse.AuthApi?.Path ?? current.AuthApi.Path },
-                DownloadStationTaskApi = { Path = infoQueryResponse.DownloadStationTaskApi?.Path ?? current.DownloadStationTaskApi.Path },
-                DownloadStationInfoApi = {Path = infoQueryResponse.DownloadStationInfoApi?.Path ?? current.DownloadStationInfoApi.Path},
-                FileStationCopyMoveApi = { Path = infoQueryResponse.FileStationCopyMoveApi?.Path ?? current.FileStationCopyMoveApi.Path },
-                FileStationCreateFolderApi = { Path = infoQueryResponse.FileStationCreateFolderApi?.Path ?? current.FileStationCreateFolderApi.Path },
-                FileStationExtractApi = { Path = infoQueryResponse.FileStationExtractApi?.Path ?? current.FileStationExtractApi.Path },
-                FileStationListApi = { Path = infoQueryResponse.FileStationListApi?.Path ?? current.FileStationListApi.Path },
-                FileStationUploadApi = { Path = infoQueryResponse.FileStationUploadApi?.Path ?? current.FileStationUploadApi.Path },
-                FileStationSearchApi = { Path = infoQueryResponse.FileStationSearchApi?.Path ?? current.FileStationSearchApi.Path },
+                DownloadStationTaskApi =
+                    { Path = infoQueryResponse.DownloadStationTaskApi?.Path ?? current.DownloadStationTaskApi.Path },
+                DownloadStationInfoApi =
+                    { Path = infoQueryResponse.DownloadStationInfoApi?.Path ?? current.DownloadStationInfoApi.Path },
+                FileStationCopyMoveApi =
+                    { Path = infoQueryResponse.FileStationCopyMoveApi?.Path ?? current.FileStationCopyMoveApi.Path },
+                FileStationCreateFolderApi =
+                {
+                    Path = infoQueryResponse.FileStationCreateFolderApi?.Path ?? current.FileStationCreateFolderApi.Path
+                },
+                FileStationExtractApi =
+                    { Path = infoQueryResponse.FileStationExtractApi?.Path ?? current.FileStationExtractApi.Path },
+                FileStationListApi =
+                    { Path = infoQueryResponse.FileStationListApi?.Path ?? current.FileStationListApi.Path },
+                FileStationUploadApi =
+                    { Path = infoQueryResponse.FileStationUploadApi?.Path ?? current.FileStationUploadApi.Path },
+                FileStationSearchApi =
+                    { Path = infoQueryResponse.FileStationSearchApi?.Path ?? current.FileStationSearchApi.Path },
             };
         }
 
@@ -87,6 +97,12 @@ namespace Synology.Api.Client.ApiDescription
             ApiNames.FileStationSearchApiName,
             "entry.cgi",
             2,
+            FileStationSessionName);
+
+        public IApiInfo FileStationDownloadApi { get; set; } = new ApiInfo(
+            ApiNames.FileStationDownloadApiName,
+            "entry.cgi", 
+            2, 
             FileStationSessionName);
     }
 }

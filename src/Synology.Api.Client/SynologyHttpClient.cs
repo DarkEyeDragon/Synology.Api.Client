@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using System.Web;
 using Synology.Api.Client.ApiDescription;
+using Synology.Api.Client.Apis.FileStation.Download.Models;
 using Synology.Api.Client.Constants;
 using Synology.Api.Client.Errors;
 using Synology.Api.Client.Exceptions;
@@ -91,7 +95,16 @@ namespace Synology.Api.Client
             switch (httpResponse.StatusCode)
             {
                 case HttpStatusCode.OK:
-                    {
+                {
+                        if (!httpResponse.Content.Headers.ContentType.MediaType.Contains("json"))
+                        {
+                            if (typeof(IDownloadableResponse).IsAssignableFrom(typeof(T)))
+                            {
+                                T instance = (T)Activator.CreateInstance(typeof(T))!;
+                                ((IDownloadableResponse)instance).FileBytes = await httpResponse.Content.ReadAsByteArrayAsync();
+                                return instance;
+                            }
+                        }
                         var response = await httpResponse.Content.ReadFromJsonAsync<ApiResponse<T>>();
                         if (!response?.Success ?? true)
                         {
@@ -110,7 +123,6 @@ namespace Synology.Api.Client
 
                             throw synologyApiException;
                         }
-
                         if (typeof(T) == typeof(BaseApiResponse))
                         {
                             return (T)Activator.CreateInstance(typeof(T), new object[] { response.Success });
